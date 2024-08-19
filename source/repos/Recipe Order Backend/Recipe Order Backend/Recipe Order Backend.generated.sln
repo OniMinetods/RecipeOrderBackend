@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe Order Backend", "Recipe Order Backend.csproj", "{69D591E3-7C10-43FD-8ACC-FC32369F8BEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69D591E3-7C10-43FD-8ACC-FC32369F8BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D591E3-7C10-43FD-8ACC-FC32369F8BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D591E3-7C10-43FD-8ACC-FC32369F8BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D591E3-7C10-43FD-8ACC-FC32369F8BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38979CEC-BF46-4EFE-BA0F-CD2BBCCF0DFC}
+	EndGlobalSection
+EndGlobal
