@@ -224,6 +224,8 @@ namespace RecipeOrder.Controllers
 
             recipe.Reviews.Add(review);
 
+            recipe.Rating = recipe.Reviews.Average(r => r.Estimation);
+
             _context.Recipes.Update(recipe);
             await _context.SaveChangesAsync();
 
