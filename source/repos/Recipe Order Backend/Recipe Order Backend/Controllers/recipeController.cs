@@ -52,6 +52,27 @@ namespace RecipeOrder.Controllers
             }).ToList();
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<Recipe>>> GetRecipeById(int id)
+        {
+            var recipes = await _context.Recipes.ToListAsync();
+            var result = recipes
+                                .Where(i => i.RecipeID == id)
+                                .Select(i => new
+            {
+                i.RecipeID,
+                i.Title,
+                i.Ingredients,
+                i.Tags,
+                i.Rating,
+                i.Reviews,
+                i.Author,
+            }).ToList();
+
+            return Ok(result);
+        }
+
         [Authorize]
         [HttpPost("createRecipe")]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipe createRecipe)
