@@ -3,20 +3,31 @@
     public class Recipe
     {
         public int RecipeID { get; set; }
-        public string Title { get; set; }
-        public string Ingredients { get; set; }
-        public string Tags { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Ingredients { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
         public double? Rating { get; set; }
         public List<RecipeReviews> Reviews { get; set; } = new List<RecipeReviews>();
         public string Author { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+    }
 
+    public class MyOwnRecipe
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Ingredients { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
+        public double? Rating { get; set; }
+        public List<RecipeReviews> Reviews { get; set; } = new List<RecipeReviews>();
+        public string Description { get; set; } = string.Empty;
     }
 
     public class CreateRecipe
     {
-        public string Title { get; set; }
-        public string Ingredients { get; set; }
-        public string Tags { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Ingredients { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
     }
 
     public class RecipeReviews

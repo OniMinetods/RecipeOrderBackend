@@ -17,16 +17,23 @@ namespace RecipeOrder.Controllers
     public class RecipeController : ControllerBase
     {
         private readonly UsersService _usersService;
-        private readonly IRecipesRepository _recipesRepository;
+        private readonly IRecipeRepository _recipeRepository;
         private readonly ApplicationDbContext _context;
         private readonly ApplicationUserDbContext _userContext;
 
-        public RecipeController(IRecipesRepository itemRepository, ApplicationDbContext context, UsersService usersService, ApplicationUserDbContext userContext)
+        public RecipeController(IRecipeRepository recipeRepository, ApplicationDbContext context, UsersService usersService, ApplicationUserDbContext userContext)
         {
-            _recipesRepository = itemRepository;
+            _recipeRepository = recipeRepository;
             _context = context;
             _usersService = usersService;
             _userContext = userContext;
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetRecipesBySearch(string? searchString)
+        {
+            var recipes = await _recipeRepository.GetAllRecipesAsync(searchString);
+            return Ok(recipes);
         }
 
         [HttpGet]
@@ -41,7 +48,7 @@ namespace RecipeOrder.Controllers
                 i.Tags,
                 i.Rating,
                 i.Reviews,
-                i.Author,
+                i.Author,   
             }).ToList();
             return Ok(result);
         }
@@ -76,6 +83,7 @@ namespace RecipeOrder.Controllers
                 Title = createRecipe.Title,
                 Ingredients = createRecipe.Ingredients,
                 Tags = createRecipe.Tags,
+                Description = createRecipe.Description,
                 Author = userGuid.ToString(),
             };
 
@@ -86,10 +94,39 @@ namespace RecipeOrder.Controllers
             {
                 Title = recipe.Title,
                 Ingredients = recipe.Ingredients,
-                Tags = recipe.Tags
+                Tags = recipe.Tags,
+                Description = recipe.Description,
             };
 
             return CreatedAtAction(nameof(GetRecipes), new { id = recipe.RecipeID }, result);
+        }
+
+        [Authorize]
+        [HttpGet("myOwnRecipes")]
+        public async Task<ActionResult<List<Recipe>>> GetMyOwnRecipes()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = Guid.Parse(userIdClaim.Value);
+
+            var userRecipes = await _context.Recipes
+                                            .Where(u => u.Author == userId.ToString())
+                                            .Select(u => new MyOwnRecipe
+                                            {
+                                                Title = u.Title,
+                                                Ingredients = u.Ingredients,
+                                                Tags = u.Tags,
+                                                Rating = u.Rating,
+                                                Reviews = u.Reviews,
+                                                Description = u.Description,
+                                            })
+                                            .ToListAsync();
+
+            return Ok(userRecipes);
         }
 
         [Authorize]

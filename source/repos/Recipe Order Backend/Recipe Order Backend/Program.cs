@@ -69,6 +69,7 @@ builder.Services.AddDbContext<ApplicationUserDbContext>(options =>
 
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IRecipesRepository, RecipesRepository>();
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 builder.Services.AddScoped<UsersService>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
